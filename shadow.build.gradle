@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': "com.android.uiautomator2.UiAutomatorViewer"
+    }
+}
+
+String toolLib = "$System.env.ANDROID_HOME/tools/lib/"
+String buildToolLib = "$System.env.ANDROID_HOME/build-tools/28.0.3/lib/"
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation fileTree(dir: 'libs', include: '*.jar', exclude: "uiautomatorviewer-26.0.0-dev.jar")
+    implementation fileTree(dir: toolLib, include: '*.jar')
+    implementation fileTree(dir: buildToolLib, include: '*.jar')
+}
